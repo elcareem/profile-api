@@ -2,9 +2,9 @@ from fastapi import APIRouter, HTTPException, status
 from app.models.user import User
 from ..schemas.auth import LoginRequest, LoginResponse
 from ..auth.jwt import create_access_token
+from ..utils.response import response, ResponseModel
 from app.database import SessionDep
 from datetime import datetime, timedelta
-from typing import List
 import logging
 import bcrypt
 
@@ -16,7 +16,7 @@ router = APIRouter(
     tags=["Auth"]
 )
 
-@router.post("/login", status_code=status.HTTP_200_OK, response_model=LoginResponse)
+@router.post("/login", status_code=status.HTTP_200_OK, response_model=ResponseModel[LoginResponse])
 def login(login_request: LoginRequest, db: SessionDep):
 
     user = db.query(User).filter((login_request.email == User.email)).first()
@@ -42,9 +42,10 @@ def login(login_request: LoginRequest, db: SessionDep):
 
     access_token = create_access_token(claims, timedelta(minutes=60))
 
-    return LoginResponse(
+    access_token = LoginResponse(
         access_token = access_token
     )
+    return response(access_token, "Login successful")
 
 def verify_password(plain_text_password: str, hashed_password: str) -> bool:
 
