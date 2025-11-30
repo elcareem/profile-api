@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, Request, HTTPException, status, File, UploadFile
 from ..models.user import User
-from ..schemas.user import UserCreateRequest, UserUpdateRequest, UserResponse 
+from ..schemas.user import UserCreateRequest, UserUpdateRequest, UserResponse, UserResponseWithImage
 from ..database import SessionDep
 from ..middleware.auth import AuthMiddleware
 from ..utils.response import ResponseModel, response
@@ -52,9 +52,13 @@ def create(user_request: UserCreateRequest, db: SessionDep, request: Request):
 
 
 
-@router.get("/me", status_code=status.HTTP_200_OK, response_model = ResponseModel[UserResponse])
+@router.get("/me", status_code=status.HTTP_200_OK, response_model = ResponseModel[UserResponse] | ResponseModel[UserResponseWithImage])
 def get_current_user(current_user = Depends(AuthMiddleware)):
-    return response(current_user, "User retrieved successfully")
+    if not current_user.image_url:
+        user = UserResponse.model_validate(current_user)
+        user = user.model_dump(exclude_none=True)
+        return response(UserResponse(**user), "User retrieved successfully") 
+    return response(current_user, "User retrieved succesfully")
 
 @router.post("/me/upload", status_code=status.HTTP_200_OK)
 async def upload_product(db: SessionDep, request: Request, image: UploadFile = File(None), current_user = Depends(AuthMiddleware)):

@@ -6,6 +6,15 @@ class UserResponse(BaseModel):
     id: int
     name: str
     email: str
+
+    model_config = {
+        "from_attributes": True,
+    }
+
+class UserResponseWithImage(BaseModel):
+    id: int
+    name: str
+    email: str
     image_url: Optional[str]
 
 class UserCreateRequest(BaseModel):
