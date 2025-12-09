@@ -1,9 +1,9 @@
 from fastapi import APIRouter, HTTPException, status
-from app.models.user import User
-from ..schemas.auth import LoginRequest, LoginResponse
-from ..auth.jwt import create_access_token
-from ..utils.response import response, ResponseModel
-from app.database import SessionDep
+from models.user import User
+from schemas.auth import LoginRequest, LoginResponse
+from auth.jwt import create_access_token
+from utils.response import response, ResponseModel
+from database import SessionDep
 from datetime import datetime, timedelta
 import logging
 import bcrypt

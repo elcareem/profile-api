@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, Request, HTTPException, status, File, UploadFile
-from ..models.user import User
-from ..schemas.user import UserCreateRequest, UserUpdateRequest, UserResponse, UserResponseWithImage
-from ..database import SessionDep
-from ..middleware.auth import AuthMiddleware
-from ..utils.response import ResponseModel, response
+from models.user import User
+from schemas.user import UserCreateRequest, UserUpdateRequest, UserResponse, UserResponseWithImage
+from database import SessionDep
+from middleware.auth import AuthMiddleware
+from utils.response import ResponseModel, response
 from datetime import datetime
 import logging
 import pymysql

@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-from .database import engine
-from .models.base import Base
-from .routes.user import router as user_router
-from .routes.auth import router as auth_router
+from database import engine
+from models.base import Base
+from routes.user import router as user_router
+from routes.auth import router as auth_router
 
 app = FastAPI() 
  

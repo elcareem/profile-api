@@ -8,7 +8,7 @@ class UserResponse(BaseModel):
     email: str
 
     model_config = {
-        "from_attributes": True,
+        "from_attributes": True
     }
 
 class UserResponseWithImage(BaseModel):

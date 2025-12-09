@@ -9,3 +9,4 @@ pydantic[email]
 python-jose
 aiofiles
 sqladmin
+alembic

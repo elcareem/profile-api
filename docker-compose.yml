@@ -17,7 +17,7 @@ services:
       - JWT_ALGORITHM=${JWT_ALGORITHM}
 
     volumes:
-      - ./app:/app/app
+      - ./app:/app
       - ./app/static/profile:/app/static/profile
     depends_on:
       profile_db:

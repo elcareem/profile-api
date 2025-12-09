@@ -1,9 +1,9 @@
 from fastapi import Request, status, HTTPException
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from ..database import SessionDep
+from database import SessionDep
 from datetime import datetime
-from ..auth.jwt import verify_access_token
-from ..models.user import User
+from auth.jwt import verify_access_token
+from models.user import User
 
 #HttpBearer is responsible for extracting Bearer token from authorization headers
 
